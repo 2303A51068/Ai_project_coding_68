@@ -1,0 +1,254 @@
+{
+  "header": {
+    "logo": {
+      "textMain": "hoes",
+      "textHighlight1": "S",
+      "textHighlight2": "H",
+      "textEnd": "ub"
+    },
+    "menu": [
+      { "label": "Home", "href": "#" },
+      { "label": "About", "href": "#" },
+      { "label": "Collections", "href": "#" },
+      { "label": "Store", "href": "#" },
+      { "label": "Blog", "href": "#" },
+      { "label": "Contact", "href": "#" }
+    ],
+    "actions": {
+      "wishlistCount": 5,
+      "cartCount": 4,
+      "cartTotal": 318
+    }
+  },
+
+  "hero": {
+    "backgroundImage": "/hero-banner.png",
+    "titleLight": "Fresh Summer",
+    "titleBold": "Shoe Collections",
+    "description": "Discover premium footwear styles designed for comfort, performance, and everyday wear. Explore curated selections crafted for modern lifestyles.",
+    "buttonText": "Shop Now"
+  },
+
+  "collection": [
+    {
+      "title": "Men’s Footwear",
+      "image": "/collection-1.jpg",
+      "link": "#"
+    },
+    {
+      "title": "Women’s Footwear",
+      "image": "/collection-2.jpg",
+      "link": "#"
+    },
+    {
+      "title": "Sports Footwear",
+      "image": "/collection-3.jpg",
+      "link": "#"
+    }
+  ],
+
+  "products": {
+    "title": "Bestsellers Products",
+    "filters": ["All", "Nike", "Adidas", "Puma"],
+    "items": [
+      {
+        "id": 1,
+        "title": "Running Sneaker Shoes",
+        "brand": "Nike",
+        "categories": ["Men", "Women"],
+        "price": 180.85,
+        "oldPrice": 220.24,
+        "image": "/product-1.jpg",
+        "badge": "New"
+      },
+      {
+        "id": 2,
+        "title": "Leather Mens Slipper",
+        "brand": "Nike",
+        "categories": ["Men", "Sports"],
+        "price": 290.85,
+        "oldPrice": 320.41,
+        "image": "/product-2.jpg"
+      },
+      {
+        "id": 3,
+        "title": "Simple Fabric Shoe",
+        "brand": "Puma",
+        "categories": ["Men", "Women"],
+        "price": 160.85,
+        "oldPrice": 260.63,
+        "image": "/product-3.jpg",
+        "badge": "New"
+      },
+      {
+        "id": 4,
+        "title": "Air Jordan 7 Retro",
+        "brand": "Adidas",
+        "categories": ["Men", "Sports"],
+        "price": 170.85,
+        "oldPrice": 200.21,
+        "image": "/product-4.jpg"
+      },
+      {
+        "id": 5,
+        "title": "Nike Air Max 270 SE",
+        "brand": "Nike",
+        "categories": ["Men", "Women"],
+        "price": 120.85,
+        "oldPrice": 160.77,
+        "image": "/product-5.jpg",
+        "badge": "New"
+      },
+      {
+        "id": 6,
+        "title": "Puma Sneakers Shoes",
+        "brand": "Puma",
+        "categories": ["Men", "Women"],
+        "price": 100.85,
+        "oldPrice": 110.27,
+        "image": "/product-6.jpg"
+      },
+      {
+        "id": 7,
+        "title": "Nike Basketball Shoes",
+        "brand": "Nike",
+        "categories": ["Men", "Sports"],
+        "price": 120.85,
+        "oldPrice": 140.56,
+        "image": "/product-7.jpg"
+      },
+      {
+        "id": 8,
+        "title": "Simple Fabric Shoe",
+        "brand": "Adidas",
+        "categories": ["Men", "Women"],
+        "price": 100.85,
+        "oldPrice": 123.93,
+        "image": "/product-8.jpg",
+        "badge": "New"
+      }
+    ]
+  },
+
+  "cta": [
+    {
+      "subtitle": "Adidas Shoes",
+      "title": "The Summer Sale Off 50%",
+      "image": "/cta-1.jpg",
+      "buttonText": "Shop Now",
+      "link": "#"
+    },
+    {
+      "subtitle": "Nike Shoes",
+      "title": "Makes Yourself Keep Sporty",
+      "image": "/cta-2.jpg",
+      "buttonText": "Shop Now",
+      "link": "#"
+    }
+  ],
+
+  "special": {
+    "banner": {
+      "title": "New Trend Edition",
+      "image": "/special-banner.jpg",
+      "buttonText": "Explore All",
+      "link": "#"
+    },
+    "title": "Nike Special",
+    "products": [
+      {
+        "id": 101,
+        "title": "Running Sneaker Shoes",
+        "categories": ["Men", "Women"],
+        "price": 180.85,
+        "image": "/product-1.jpg",
+        "badge": "New"
+      },
+      {
+        "id": 102,
+        "title": "Leather Mens Slipper",
+        "categories": ["Men", "Sports"],
+        "price": 190.85,
+        "image": "/product-2.jpg"
+      },
+      {
+        "id": 103,
+        "title": "Simple Fabric Shoe",
+        "categories": ["Men", "Women"],
+        "price": 160.85,
+        "image": "/product-3.jpg",
+        "badge": "New"
+      }
+    ]
+  },
+
+  "service": [
+    {
+      "icon": "truck",
+      "title": "Free Shipping",
+      "text": "All orders over $150"
+    },
+    {
+      "icon": "credit-card",
+      "title": "Quick Payment",
+      "text": "100% secure payment"
+    },
+    {
+      "icon": "rotate-ccw",
+      "title": "Free Returns",
+      "text": "Money back in 30 days"
+    },
+    {
+      "icon": "headphones",
+      "title": "24/7 Support",
+      "text": "Get Quick Support"
+    }
+  ],
+
+  "instagram": [
+    { "image": "/insta-8.jpg", "link": "#" },
+    { "image": "/insta-7.jpg", "link": "#" },
+    { "image": "/insta-6.jpg", "link": "#" },
+    { "image": "/insta-5.jpg", "link": "#" },
+    { "image": "/insta-4.jpg", "link": "#" },
+    { "image": "/insta-3.jpg", "link": "#" },
+    { "image": "/insta-2.jpg", "link": "#" },
+    { "image": "/insta-1.jpg", "link": "#" }
+  ],
+
+  "footer": {
+    "brand": {
+      "name": "ShoesHub",
+      "highlight1": "S",
+      "highlight2": "H"
+    },
+    "socials": [
+      { "icon": "facebook", "link": "#" },
+      { "icon": "twitter", "link": "#" },
+      { "icon": "pinterest", "link": "#" },
+      { "icon": "linkedin", "link": "#" }
+    ],
+    "contact": {
+      "address": "2751 S Parker Rd, Aurora, CO 80014, United States",
+      "phone": "+557343673257",
+      "email": "shoeshub@help.com"
+    },
+    "accountLinks": ["My Account", "View Cart", "Wishlist", "Compare", "New Products"],
+    "openingTime": [
+      { "day": "Mon - Tue", "time": "8AM - 10PM" },
+      { "day": "Wed", "time": "8AM - 7PM" },
+      { "day": "Fri", "time": "7AM - 12PM" },
+      { "day": "Sat", "time": "9AM - 8PM" },
+      { "day": "Sun", "time": "Closed" }
+    ],
+    "newsletter": {
+      "text": "Authoritatively morph 24/7 potentialities with error-free partnerships.",
+      "buttonText": "Subscribe"
+    },
+    "copyright": {
+      "textMain": "©",
+      "textHighlight": " Nawazdevx ",
+      "textEnd": "All Rights Reserved."
+    }
+  }
+}
