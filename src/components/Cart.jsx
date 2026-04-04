@@ -1,7 +1,7 @@
 import { useCart } from '../hooks/useCart';
 import * as Icons from 'lucide-react';
 
-export default function Cart() {
+export default function Cart({ onCheckout }) {
   const { cartItems, isCartOpen, setIsCartOpen, removeFromCart, updateQuantity, getTotalPrice } = useCart();
 
   if (!isCartOpen) return null;
@@ -81,8 +81,14 @@ export default function Cart() {
               <span>Total:</span>
               <span className="text-rose-500">${getTotalPrice().toFixed(2)}</span>
             </div>
-            <button className="w-full bg-rose-500 text-white py-3 rounded font-semibold hover:bg-rose-600 transition">
-              Checkout
+            <button 
+              onClick={() => {
+                onCheckout();
+                setIsCartOpen(false);
+              }}
+              className="w-full bg-rose-500 text-white py-3 rounded font-semibold hover:bg-rose-600 transition"
+            >
+              Proceed to Checkout
             </button>
             <button
               onClick={() => setIsCartOpen(false)}

@@ -8,6 +8,7 @@ import { useAuth } from './hooks/useAuth';
 import Cart from './components/Cart';
 import Auth from './components/Auth';
 import ProductDetail from './components/ProductDetail';
+import Payment from './components/Payment';
 
 function AppContent() {
   // ─── State management for UI interactions
@@ -19,8 +20,10 @@ function AppContent() {
   const [priceRange, setPriceRange] = useState([0, 500]);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [categoryFilter, setCategoryFilter] = useState('All');
+  const [isPaymentOpen, setIsPaymentOpen] = useState(false);
+  const [orderConfirmation, setOrderConfirmation] = useState(null);
   
-  const { addToCart, getCartCount, setIsCartOpen } = useCart();
+  const { addToCart, getCartCount, setIsCartOpen, clearCart } = useCart();
   const { setIsAuthModalOpen, user } = useAuth();
 
   // ─── Track scroll position for header shadow effect
@@ -631,7 +634,7 @@ function AppContent() {
       )}
 
       {/* ─── Cart Component */}
-      <Cart />
+      <Cart onCheckout={() => setIsPaymentOpen(true)} />
 
       {/* ─── Auth Modal Component */}
       <Auth />
@@ -641,6 +644,19 @@ function AppContent() {
         <ProductDetail 
           product={selectedProduct} 
           onClose={() => setSelectedProduct(null)} 
+        />
+      )}
+
+      {/* ─── Payment Modal Component */}
+      {isPaymentOpen && (
+        <Payment 
+          onClose={() => setIsPaymentOpen(false)}
+          onSuccess={(order) => {
+            setOrderConfirmation(order);
+            clearCart();
+            // Show success message
+            alert(`Order placed successfully! Order ID: ${order.orderId}`);
+          }}
         />
       )}
     </>
