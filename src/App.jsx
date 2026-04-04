@@ -75,19 +75,35 @@ function AppContent() {
       <header className={`fixed top-0 z-50 w-full bg-white transition-shadow ${scrolled ? 'shadow-md' : ''}`}>
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
           {/* ─── Site logo */}
-          <a href="#" className="text-[26px] font-bold text-black">
+          <button 
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="text-[26px] font-bold text-black cursor-pointer"
+          >
             <span className="text-rose-500">{content.header.logo.textHighlight1}</span>
             {content.header.logo.textMain}
             <span className="text-rose-500">{content.header.logo.textHighlight2}</span>
             {content.header.logo.textEnd}
-          </a>
+          </button>
 
           {/* ─── Desktop navigation menu */}
           <nav className="hidden lg:flex items-center gap-8">
             {content.header.menu.map((item) => (
-              <a key={item.label} href={item.href} className="font-semibold text-gray-800 hover:text-rose-500">
+              <button
+                key={item.label}
+                onClick={() => {
+                  // Scroll to different sections based on menu item
+                  if (item.label === 'Home') {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  } else if (item.label === 'Store' || item.label === 'Collections') {
+                    document.querySelector('#products-section')?.scrollIntoView({ behavior: 'smooth' });
+                  } else {
+                    alert(`${item.label} section coming soon!`);
+                  }
+                }}
+                className="font-semibold text-gray-800 hover:text-rose-500 cursor-pointer"
+              >
                 {item.label}
-              </a>
+              </button>
             ))}
           </nav>
 
@@ -113,12 +129,17 @@ function AppContent() {
               )}
             </button>
 
-            <div className="relative">
-              <Icons.Heart className="h-5 w-5 cursor-pointer hover:text-rose-500" />
+            <button 
+              onClick={() => {
+                alert('Wishlist feature coming soon!');
+              }}
+              className="relative cursor-pointer"
+            >
+              <Icons.Heart className="h-5 w-5 hover:text-rose-500" />
               <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-rose-500 text-xs text-white">
                 {content.header.actions.wishlistCount}
               </span>
-            </div>
+            </button>
 
             <button onClick={() => setIsCartOpen(true)} className="relative flex items-center gap-2">
               <Icons.ShoppingBag className="h-5 w-5 cursor-pointer hover:text-rose-500" />
@@ -159,23 +180,39 @@ function AppContent() {
           </button>
 
           {/* ─── Mobile logo */}
-          <a href="#" className="text-[26px] font-bold text-black">
+          <button 
+            onClick={() => {
+              setMenuOpen(false);
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            className="text-[26px] font-bold text-black cursor-pointer"
+          >
             <span className="text-rose-500">{content.header.logo.textHighlight1}</span>
             {content.header.logo.textMain}
             <span className="text-rose-500">{content.header.logo.textHighlight2}</span>
             {content.header.logo.textEnd}
-          </a>
+          </button>
 
           {/* ─── Mobile navigation links */}
           <nav className="mt-12 space-y-4">
             {content.header.menu.map((item) => (
-              <a
+              <button
                 key={item.label}
-                href={item.href}
-                className="block border-b py-2 font-semibold text-gray-800 hover:text-rose-500"
+                onClick={() => {
+                  setMenuOpen(false);
+                  // Scroll to different sections based on menu item
+                  if (item.label === 'Home') {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  } else if (item.label === 'Store' || item.label === 'Collections') {
+                    document.querySelector('#products-section')?.scrollIntoView({ behavior: 'smooth' });
+                  } else {
+                    alert(`${item.label} section coming soon!`);
+                  }
+                }}
+                className="block border-b py-2 font-semibold text-gray-800 hover:text-rose-500 cursor-pointer w-full text-left"
               >
                 {item.label}
-              </a>
+              </button>
             ))}
           </nav>
         </aside>
@@ -198,7 +235,13 @@ function AppContent() {
             {content.hero.description}
           </p>
 
-          <button className="cursor-pointer mt-6 inline-flex items-center gap-2 bg-rose-500 px-6 py-3 text-sm xl:text-lg font-semibold text-white transition hover:bg-rose-600 hover:-translate-y-0.5">
+          <button 
+            className="cursor-pointer mt-6 inline-flex items-center gap-2 bg-rose-500 px-6 py-3 text-sm xl:text-lg font-semibold text-white transition hover:bg-rose-600 hover:-translate-y-0.5"
+            onClick={() => {
+              // Scroll to products section
+              document.querySelector('#products-section')?.scrollIntoView({ behavior: 'smooth' });
+            }}
+          >
             {content.hero.buttonText}
             <Icons.ArrowRight size={18} />
           </button>
@@ -219,13 +262,16 @@ function AppContent() {
                 >
                   <h3 className="text-2xl font-semibold text-gray-900">{item.title}</h3>
 
-                  <a
-                    href={item.link}
-                    className="inline-flex items-center gap-2 border border-black px-5 py-2 text-sm font-medium transition hover:bg-black hover:text-white"
+                  <button
+                    onClick={() => {
+                      // Scroll to products section
+                      document.querySelector('#products-section')?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className="inline-flex items-center gap-2 border border-black px-5 py-2 text-sm font-medium transition hover:bg-black hover:text-white cursor-pointer"
                   >
                     Explore All
                     <Icons.ArrowRight size={16} />
-                  </a>
+                  </button>
                 </div>
               </li>
             ))}
@@ -234,7 +280,7 @@ function AppContent() {
       </section>
 
       {/* ────────────────────────────────────────────────── [ Products Section ] */}
-      <section className="py-16">
+      <section id="products-section" className="py-16">
         <div className="mx-auto max-w-7xl px-4">
           <h2 className="mb-8 text-center text-3xl font-semibold text-gray-900">{content.products.title}</h2>
 
@@ -329,7 +375,13 @@ function AppContent() {
                     >
                       <Icons.ShoppingCart size={20} />
                     </button>
-                    <button className="rounded-full text-rose-500 bg-white p-3 hover:bg-rose-500 hover:text-white transition" title="Add to Wishlist">
+                    <button 
+                      onClick={() => {
+                        alert('Added to wishlist!');
+                      }}
+                      className="rounded-full text-rose-500 bg-white p-3 hover:bg-rose-500 hover:text-white transition" 
+                      title="Add to Wishlist"
+                    >
                       <Icons.Heart size={20} />
                     </button>
                     <button 
@@ -339,7 +391,13 @@ function AppContent() {
                     >
                       <Icons.Eye size={20} />
                     </button>
-                    <button className="rounded-full text-rose-500 bg-white p-3 hover:bg-rose-500 hover:text-white transition" title="Compare">
+                    <button 
+                      onClick={() => {
+                        alert('Added to compare!');
+                      }}
+                      className="rounded-full text-rose-500 bg-white p-3 hover:bg-rose-500 hover:text-white transition" 
+                      title="Compare"
+                    >
                       <Icons.Repeat size={20} />
                     </button>
                   </div>
@@ -380,13 +438,16 @@ function AppContent() {
 
                 <h3 className="mb-5 text-2xl font-semibold leading-snug">{item.title}</h3>
 
-                <a
-                  href={item.link}
-                  className="inline-flex items-center gap-2 border-b border-white pb-1 text-sm font-semibold transition hover:border-rose-500"
+                <button
+                  onClick={() => {
+                    // Scroll to products section
+                    document.querySelector('#products-section')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="inline-flex items-center gap-2 border-b border-white pb-1 text-sm font-semibold transition hover:border-rose-500 cursor-pointer"
                 >
                   {item.buttonText}
                   <Icons.ArrowRight size={16} />
-                </a>
+                </button>
               </div>
             ))}
           </div>
@@ -405,13 +466,16 @@ function AppContent() {
           >
             <h3 className="text-xl font-semibold">{content.special.banner.title}</h3>
 
-            <a
-              href={content.special.banner.link}
-              className="inline-flex items-center gap-2 border-b border-white pb-1 text-sm font-semibold transition hover:border-rose-500"
+            <button
+              onClick={() => {
+                // Scroll to products section
+                document.querySelector('#products-section')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="inline-flex items-center gap-2 border-b border-white pb-1 text-sm font-semibold transition hover:border-rose-500 cursor-pointer"
             >
               {content.special.banner.buttonText}
               <Icons.ArrowRight size={16} />
-            </a>
+            </button>
           </div>
 
           {/* ─── Right products carousel */}
@@ -438,16 +502,39 @@ function AppContent() {
                     )}
 
                     <div className="absolute right-4 top-4 flex flex-col gap-2 opacity-0 transition group-hover:opacity-100">
-                      <button className="rounded-full text-rose-500 bg-white p-3 hover:bg-rose-500 hover:text-white">
+                      <button 
+                        onClick={() => {
+                          addToCart(product);
+                          alert('Added to cart!');
+                        }}
+                        className="rounded-full text-rose-500 bg-white p-3 hover:bg-rose-500 hover:text-white"
+                        title="Add to Cart"
+                      >
                         <Icons.ShoppingCart size={20} />
                       </button>
-                      <button className="rounded-full text-rose-500 bg-white p-3 hover:bg-rose-500 hover:text-white">
+                      <button 
+                        onClick={() => {
+                          alert('Added to wishlist!');
+                        }}
+                        className="rounded-full text-rose-500 bg-white p-3 hover:bg-rose-500 hover:text-white" 
+                        title="Add to Wishlist"
+                      >
                         <Icons.Heart size={20} />
                       </button>
-                      <button className="rounded-full text-rose-500 bg-white p-3 hover:bg-rose-500 hover:text-white">
+                      <button 
+                        onClick={() => setSelectedProduct(product)}
+                        className="rounded-full text-rose-500 bg-white p-3 hover:bg-rose-500 hover:text-white" 
+                        title="View Details"
+                      >
                         <Icons.Eye size={20} />
                       </button>
-                      <button className="rounded-full text-rose-500 bg-white p-3 hover:bg-rose-500 hover:text-white">
+                      <button 
+                        onClick={() => {
+                          alert('Added to compare!');
+                        }}
+                        className="rounded-full text-rose-500 bg-white p-3 hover:bg-rose-500 hover:text-white" 
+                        title="Compare"
+                      >
                         <Icons.Repeat size={20} />
                       </button>
                     </div>
@@ -520,25 +607,32 @@ function AppContent() {
         <div className="mx-auto max-w-7xl px-4 py-16">
           {/* Brand */}
           <div className="mb-12 flex flex-col items-center justify-between gap-6 border-b pb-8 md:flex-row">
-            <a href="#" className="text-[26px] font-bold">
+            <button 
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              className="text-[26px] font-bold cursor-pointer"
+            >
               <span className="text-rose-500">{content.footer.brand.highlight1}</span>
               hoes
               <span className="text-rose-500">{content.footer.brand.highlight2}</span>
               ub
-            </a>
+            </button>
 
             <ul className="flex gap-3">
               {content.footer.socials.map((item) => {
                 const Icon = socialIcons[item.icon];
                 return (
                   <li key={item.icon}>
-                    <a
-                      href={item.link}
-                      className="flex h-10 w-10 items-center justify-center rounded bg-gray-300 text-gray-700 transition hover:bg-rose-500 hover:text-white"
+                    <button
+                      onClick={() => {
+                        alert(`Opening ${item.icon} page...`);
+                        // In a real app, this would open the social media link
+                        // window.open(item.link, '_blank');
+                      }}
+                      className="flex h-10 w-10 items-center justify-center rounded bg-gray-300 text-gray-700 transition hover:bg-rose-500 hover:text-white cursor-pointer"
                       aria-label={item.icon}
                     >
                       <Icon size={18} />
-                    </a>
+                    </button>
                   </li>
                 );
               })}
@@ -573,9 +667,20 @@ function AppContent() {
               <ul className="space-y-2">
                 {content.footer.accountLinks.map((item) => (
                   <li key={item}>
-                    <a href="#" className="text-sm text-gray-600 hover:text-rose-500">
+                    <button 
+                      onClick={() => {
+                        if (item === 'View Cart') {
+                          setIsCartOpen(true);
+                        } else if (item === 'My Account') {
+                          setIsAuthModalOpen(true);
+                        } else {
+                          alert(`${item} feature coming soon!`);
+                        }
+                      }}
+                      className="text-sm text-gray-600 hover:text-rose-500 cursor-pointer"
+                    >
                       {item}
-                    </a>
+                    </button>
                   </li>
                 ))}
               </ul>
@@ -599,8 +704,19 @@ function AppContent() {
               <h4 className="mb-4 text-lg font-semibold">Newsletter</h4>
               <p className="mb-4 text-sm text-gray-600">{content.footer.newsletter.text}</p>
 
-              <form className="flex">
+              <form 
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  const email = e.target.email.value;
+                  if (email) {
+                    alert(`Thank you for subscribing! We'll send updates to ${email}`);
+                    e.target.reset();
+                  }
+                }}
+                className="flex"
+              >
                 <input
+                  name="email"
                   type="email"
                   placeholder="Email Address"
                   className="w-full border border-gray-300 px-4 py-2 text-sm"
