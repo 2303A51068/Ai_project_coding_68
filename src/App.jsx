@@ -1,13 +1,27 @@
 import content from './content.json';
 import { useState, useEffect } from 'react';
 import * as Icons from 'lucide-react';
+import { CartProvider } from './context/CartContext';
+import { AuthProvider } from './context/AuthContext';
+import { useCart } from './hooks/useCart';
+import { useAuth } from './hooks/useAuth';
+import Cart from './components/Cart';
+import Auth from './components/Auth';
+import ProductDetail from './components/ProductDetail';
 
-export default function App() {
+function AppContent() {
   // ─── State management for UI interactions
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeFilter, setActiveFilter] = useState('All');
   const [showGoTop, setShowGoTop] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [priceRange, setPriceRange] = useState([0, 500]);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [categoryFilter, setCategoryFilter] = useState('All');
+  
+  const { addToCart, getCartCount, setIsCartOpen } = useCart();
+  const { setIsAuthModalOpen, user } = useAuth();
 
   // ─── Track scroll position for header shadow effect
   useEffect(() => {
@@ -16,11 +30,15 @@ export default function App() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // ─── Filter products based on selected brand
-  const filteredProducts =
-    activeFilter === 'All'
-      ? content.products.items
-      : content.products.items.filter((product) => product.brand === activeFilter);
+  // ─── Filter products based on selected brand, search, price, and category
+  const filteredProducts = content.products.items.filter((product) => {
+    const matchesBrand = activeFilter === 'All' || product.brand === activeFilter;
+    const matchesSearch = product.title.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesPrice = product.price >= priceRange[0] && product.price <= priceRange[1];
+    const matchesCategory = categoryFilter === 'All' || product.categories.includes(categoryFilter);
+    
+    return matchesBrand && matchesSearch && matchesPrice && matchesCategory;
+  });
 
   // ─── Map service icon names to Lucide components
   const serviceIcons = {
@@ -72,23 +90,42 @@ export default function App() {
 
           {/* ─── Desktop action icons */}
           <div className="hidden lg:flex items-center gap-5">
-            <Icons.Search className="h-5 w-5 cursor-pointer" />
-            <Icons.User className="h-5 w-5 cursor-pointer" />
+            <div className="relative flex items-center bg-gray-100 rounded-full px-4 py-2">
+              <Icons.Search className="h-5 w-5 text-gray-600" />
+              <input
+                type="text"
+                placeholder="Search shoes..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="ml-2 bg-transparent outline-none w-32 text-sm"
+              />
+            </div>
+            <button onClick={() => setIsAuthModalOpen(true)} className="relative group">
+              <Icons.User className="h-5 w-5 cursor-pointer hover:text-rose-500" />
+              {user && (
+                <div className="absolute right-0 mt-2 bg-white shadow-lg rounded-lg p-3 hidden group-hover:block whitespace-nowrap text-sm">
+                  <p className="font-semibold text-gray-900">{user.name}</p>
+                  <p className="text-gray-600 text-xs">{user.email}</p>
+                </div>
+              )}
+            </button>
 
             <div className="relative">
-              <Icons.Heart className="h-5 w-5 cursor-pointer" />
+              <Icons.Heart className="h-5 w-5 cursor-pointer hover:text-rose-500" />
               <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-rose-500 text-xs text-white">
                 {content.header.actions.wishlistCount}
               </span>
             </div>
 
-            <div className="relative flex items-center gap-2">
-              <Icons.ShoppingBag className="h-5 w-5 cursor-pointer" />
-              <span className="text-sm font-medium text-rose-500">${content.header.actions.cartTotal.toFixed(2)}</span>
-              <span className="absolute -right-3 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-rose-500 text-xs text-white">
-                {content.header.actions.cartCount}
-              </span>
-            </div>
+            <button onClick={() => setIsCartOpen(true)} className="relative flex items-center gap-2">
+              <Icons.ShoppingBag className="h-5 w-5 cursor-pointer hover:text-rose-500" />
+              <span className="text-sm font-medium text-rose-500">${(getCartCount() * 50).toFixed(2)}</span>
+              {getCartCount() > 0 && (
+                <span className="absolute -right-3 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-rose-500 text-xs text-white">
+                  {getCartCount()}
+                </span>
+              )}
+            </button>
           </div>
 
           {/* ─── Mobile menu toggle button */}
@@ -215,6 +252,48 @@ export default function App() {
             ))}
           </div>
 
+          {/* ─── Category and Price Filters */}
+          <div className="mb-10 flex flex-wrap gap-6 justify-center">
+            <div>
+              <label className="text-sm font-semibold text-gray-700 mb-2 block">Category</label>
+              <select
+                value={categoryFilter}
+                onChange={(e) => setCategoryFilter(e.target.value)}
+                className="border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-rose-500"
+              >
+                <option value="All">All Categories</option>
+                <option value="Men">Men</option>
+                <option value="Women">Women</option>
+                <option value="Sports">Sports</option>
+              </select>
+            </div>
+            
+            <div>
+              <label className="text-sm font-semibold text-gray-700 mb-2 block">Price Range</label>
+              <div className="flex items-center gap-2">
+                <input
+                  type="number"
+                  min="0"
+                  max="500"
+                  value={priceRange[0]}
+                  onChange={(e) => setPriceRange([Number(e.target.value), priceRange[1]])}
+                  className="w-16 border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-rose-500"
+                  placeholder="Min"
+                />
+                <span>-</span>
+                <input
+                  type="number"
+                  min="0"
+                  max="500"
+                  value={priceRange[1]}
+                  onChange={(e) => setPriceRange([priceRange[0], Number(e.target.value)])}
+                  className="w-16 border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-rose-500"
+                  placeholder="Max"
+                />
+              </div>
+            </div>
+          </div>
+
           {/* ─── Product grid with hover actions */}
           <ul className="grid gap-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {filteredProducts.map((product) => (
@@ -224,7 +303,8 @@ export default function App() {
                   <img
                     src={product.image}
                     alt={product.title}
-                    className="h-87.5 w-full object-contain transition-transform duration-300 group-hover:scale-110"
+                    className="h-87.5 w-full object-contain transition-transform duration-300 group-hover:scale-110 cursor-pointer"
+                    onClick={() => setSelectedProduct(product)}
                   />
 
                   {/* ─── Product badge */}
@@ -236,16 +316,27 @@ export default function App() {
 
                   {/* ─── Quick action buttons */}
                   <div className="absolute right-4 top-4 flex flex-col gap-2 opacity-0 transition group-hover:opacity-100">
-                    <button className="rounded-full text-rose-500 bg-white p-3 hover:bg-rose-500 hover:text-white">
+                    <button 
+                      onClick={() => {
+                        addToCart(product);
+                        alert('Added to cart!');
+                      }}
+                      className="rounded-full text-rose-500 bg-white p-3 hover:bg-rose-500 hover:text-white transition"
+                      title="Add to Cart"
+                    >
                       <Icons.ShoppingCart size={20} />
                     </button>
-                    <button className="rounded-full text-rose-500 bg-white p-3 hover:bg-rose-500 hover:text-white">
+                    <button className="rounded-full text-rose-500 bg-white p-3 hover:bg-rose-500 hover:text-white transition" title="Add to Wishlist">
                       <Icons.Heart size={20} />
                     </button>
-                    <button className="rounded-full text-rose-500 bg-white p-3 hover:bg-rose-500 hover:text-white">
+                    <button 
+                      onClick={() => setSelectedProduct(product)}
+                      className="rounded-full text-rose-500 bg-white p-3 hover:bg-rose-500 hover:text-white transition" 
+                      title="View Details"
+                    >
                       <Icons.Eye size={20} />
                     </button>
-                    <button className="rounded-full text-rose-500 bg-white p-3 hover:bg-rose-500 hover:text-white">
+                    <button className="rounded-full text-rose-500 bg-white p-3 hover:bg-rose-500 hover:text-white transition" title="Compare">
                       <Icons.Repeat size={20} />
                     </button>
                   </div>
@@ -255,7 +346,9 @@ export default function App() {
                 <div className="mt-4 text-center">
                   <p className="mb-1 font-semibold text-rose-500">{product.categories.join(' / ')}</p>
 
-                  <h3 className="text-xl font-semibold text-gray-900">{product.title}</h3>
+                  <h3 className="text-xl font-semibold text-gray-900 cursor-pointer hover:text-rose-500" onClick={() => setSelectedProduct(product)}>
+                    {product.title}
+                  </h3>
 
                   <p className="mt-1 font-semibold text-rose-500">
                     ${product.price.toFixed(2)}
@@ -536,6 +629,30 @@ export default function App() {
           <Icons.ArrowUp size={20} />
         </button>
       )}
+
+      {/* ─── Cart Component */}
+      <Cart />
+
+      {/* ─── Auth Modal Component */}
+      <Auth />
+
+      {/* ─── Product Detail Modal */}
+      {selectedProduct && (
+        <ProductDetail 
+          product={selectedProduct} 
+          onClose={() => setSelectedProduct(null)} 
+        />
+      )}
     </>
+  );
+}
+
+export default function App() {
+  return (
+    <CartProvider>
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
+    </CartProvider>
   );
 }
