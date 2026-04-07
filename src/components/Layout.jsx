@@ -179,9 +179,10 @@ export default function Layout({ children }) {
             <div>
               <h4 className="font-bold text-white mb-4">Quick Links</h4>
               <ul className="space-y-2 text-sm">
-                {content.footer.accountLinks.map((link) => (
-                  <li key={link}><a href="#" className="hover:text-rose-500">{link}</a></li>
-                ))}
+                <li><Link to="/account" className="hover:text-rose-500">My Account</Link></li>
+                <li><Link to="/cart" className="hover:text-rose-500">View Cart</Link></li>
+                <li><Link to="/wishlist" className="hover:text-rose-500">Wishlist</Link></li>
+                <li><Link to="/" className="hover:text-rose-500">New Products</Link></li>
               </ul>
             </div>
             <div>
@@ -189,19 +190,9 @@ export default function Layout({ children }) {
               <p className="text-sm">{content.footer.contact.phone}</p>
               <p className="text-sm">{content.footer.contact.email}</p>
             </div>
-            <div>
-              <h4 className="font-bold text-white mb-4">Follow Us</h4>
-              <div className="flex gap-4">
-                {content.footer.socials.map((social) => (
-                  <a key={social.icon} href={social.link} className="hover:text-rose-500">
-                    <Icons.Facebook size={20} />
-                  </a>
-                ))}
-              </div>
-            </div>
           </div>
           <div className="border-t border-gray-700 pt-8 text-center text-sm">
-            <p>{content.footer.copyright.textMain} <span className="text-rose-500">{content.footer.copyright.textHighlight}</span> {content.footer.copyright.textEnd}</p>
+            <p>{content.footer.copyright.textMain}</p>
           </div>
         </div>
       </footer>
