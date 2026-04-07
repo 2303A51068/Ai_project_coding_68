@@ -1,5 +1,6 @@
 import * as Icons from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { formatPrice } from '../utils/formatCurrency';
 
 export default function WishlistPage() {
   const wishlistItems = []; // This will be connected to a wishlist context
@@ -27,7 +28,7 @@ export default function WishlistPage() {
                 </div>
                 <div className="p-4">
                   <h3 className="font-semibold text-gray-900 truncate">{item.title}</h3>
-                  <p className="text-rose-500 font-bold">${item.price}</p>
+                  <p className="text-rose-500 font-bold">{formatPrice(item.price)}</p>
                   <button className="w-full mt-2 bg-rose-500 text-white py-2 rounded hover:bg-rose-600 transition">
                     Add to Cart
                   </button>

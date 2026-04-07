@@ -3,6 +3,7 @@ import { useCart } from '../hooks/useCart';
 import { useAuth } from '../hooks/useAuth';
 import { Link } from 'react-router-dom';
 import * as Icons from 'lucide-react';
+import { formatPrice } from '../utils/formatCurrency';
 
 export default function CheckoutPage() {
   const { cartItems, getTotalPrice, clearCart } = useCart();
@@ -27,9 +28,9 @@ export default function CheckoutPage() {
   const [loading, setLoading] = useState(false);
 
   const subtotal = getTotalPrice();
-  const shipping = subtotal > 150 ? 0 : 10;
-  const tax = (subtotal * 0.1).toFixed(2);
-  const total = (subtotal + shipping + parseFloat(tax)).toFixed(2);
+  const shipping = subtotal > 12000 ? 0 : 500;
+  const tax = (subtotal * 0.18);
+  const total = subtotal + shipping + tax;
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -244,26 +245,26 @@ export default function CheckoutPage() {
                 {cartItems.map((item) => (
                   <div key={item.id} className="flex justify-between text-sm">
                     <span className="text-gray-600">{item.title} x {item.quantity}</span>
-                    <span className="font-semibold">${(item.price * item.quantity).toFixed(2)}</span>
+                    <span className="font-semibold">{formatPrice(item.price * item.quantity)}</span>
                   </div>
                 ))}
               </div>
               <div className="border-t pt-4 space-y-2">
                 <div className="flex justify-between text-sm">
                   <span>Subtotal</span>
-                  <span>${subtotal.toFixed(2)}</span>
+                  <span>{formatPrice(subtotal)}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span>Shipping</span>
-                  <span>{shipping === 0 ? 'FREE' : `$${shipping}`}</span>
+                  <span>{shipping === 0 ? 'FREE' : formatPrice(shipping)}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span>Tax</span>
-                  <span>${tax}</span>
+                  <span>Tax (18%)</span>
+                  <span>{formatPrice(tax)}</span>
                 </div>
                 <div className="flex justify-between text-lg font-bold border-t pt-2">
                   <span>Total</span>
-                  <span className="text-rose-500">${total}</span>
+                  <span className="text-rose-500">{formatPrice(total)}</span>
                 </div>
               </div>
             </div>

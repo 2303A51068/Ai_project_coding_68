@@ -56,8 +56,8 @@
         "title": "Running Sneaker Shoes",
         "brand": "Nike",
         "categories": ["Men", "Women"],
-        "price": 180.85,
-        "oldPrice": 220.24,
+        "price": 15000,
+        "oldPrice": 18300,
         "image": "/product-1.jpg",
         "badge": "New"
       },
@@ -66,8 +66,8 @@
         "title": "Leather Mens Slipper",
         "brand": "Nike",
         "categories": ["Men", "Sports"],
-        "price": 290.85,
-        "oldPrice": 320.41,
+        "price": 24150,
+        "oldPrice": 26600,
         "image": "/product-2.jpg"
       },
       {
@@ -75,8 +75,8 @@
         "title": "Simple Fabric Shoe",
         "brand": "Puma",
         "categories": ["Men", "Women"],
-        "price": 160.85,
-        "oldPrice": 260.63,
+        "price": 13350,
+        "oldPrice": 21630,
         "image": "/product-3.jpg",
         "badge": "New"
       },
@@ -85,8 +85,8 @@
         "title": "Air Jordan 7 Retro",
         "brand": "Adidas",
         "categories": ["Men", "Sports"],
-        "price": 170.85,
-        "oldPrice": 200.21,
+        "price": 14175,
+        "oldPrice": 16620,
         "image": "/product-4.jpg"
       },
       {
@@ -94,8 +94,8 @@
         "title": "Nike Air Max 270 SE",
         "brand": "Nike",
         "categories": ["Men", "Women"],
-        "price": 120.85,
-        "oldPrice": 160.77,
+        "price": 10020,
+        "oldPrice": 13350,
         "image": "/product-5.jpg",
         "badge": "New"
       },
@@ -104,8 +104,8 @@
         "title": "Puma Sneakers Shoes",
         "brand": "Puma",
         "categories": ["Men", "Women"],
-        "price": 100.85,
-        "oldPrice": 110.27,
+        "price": 8370,
+        "oldPrice": 9153,
         "image": "/product-6.jpg"
       },
       {
@@ -113,8 +113,8 @@
         "title": "Nike Basketball Shoes",
         "brand": "Nike",
         "categories": ["Men", "Sports"],
-        "price": 120.85,
-        "oldPrice": 140.56,
+        "price": 10020,
+        "oldPrice": 11665,
         "image": "/product-7.jpg"
       },
       {
@@ -122,8 +122,8 @@
         "title": "Simple Fabric Shoe",
         "brand": "Adidas",
         "categories": ["Men", "Women"],
-        "price": 100.85,
-        "oldPrice": 123.93,
+        "price": 8370,
+        "oldPrice": 10285,
         "image": "/product-8.jpg",
         "badge": "New"
       }
@@ -273,8 +273,8 @@
       { "icon": "linkedin", "link": "#" }
     ],
     "contact": {
-      "address": "2751 S Parker Rd, Aurora, CO 80014, United States",
-      "phone": "+557343673257",
+      "address": "123 Fashion Street, New Delhi, India 110001",
+      "phone": "+91-11-4567-8900",
       "email": "shoeshub@help.com"
     },
     "accountLinks": ["My Account", "View Cart", "Wishlist", "Compare", "New Products"],

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useCart } from '../hooks/useCart';
 import * as Icons from 'lucide-react';
+import { formatPrice } from '../utils/formatCurrency';
 
 export default function CartPage() {
   const { cartItems, removeFromCart, updateQuantity, getTotalPrice } = useCart();
@@ -21,9 +22,9 @@ export default function CartPage() {
   }
 
   const subtotal = getTotalPrice();
-  const shipping = subtotal > 150 ? 0 : 10;
-  const tax = (subtotal * 0.1).toFixed(2);
-  const total = (subtotal + shipping + parseFloat(tax)).toFixed(2);
+  const shipping = subtotal > 12000 ? 0 : 500;
+  const tax = (subtotal * 0.18);
+  const total = subtotal + shipping + tax;
 
   return (
     <div className="min-h-screen pt-24 pb-12 bg-gray-50">
@@ -45,7 +46,7 @@ export default function CartPage() {
                   <div className="flex-1">
                     <h3 className="text-lg font-bold text-gray-900">{item.title}</h3>
                     <p className="text-gray-600 text-sm mb-2">{item.brand}</p>
-                    <p className="text-rose-500 font-bold">${item.price.toFixed(2)}</p>
+                    <p className="text-rose-500 font-bold">{formatPrice(item.price)}</p>
                   </div>
 
                   {/* Quantity & Actions */}
@@ -67,7 +68,7 @@ export default function CartPage() {
                     </div>
                     <div className="text-right">
                       <p className="text-sm text-gray-600">Subtotal</p>
-                      <p className="font-bold">${(item.price * item.quantity).toFixed(2)}</p>
+                      <p className="font-bold">{formatPrice(item.price * item.quantity)}</p>
                     </div>
                     <button
                       onClick={() => removeFromCart(item.id)}
@@ -96,26 +97,26 @@ export default function CartPage() {
               <div className="space-y-4 mb-6">
                 <div className="flex justify-between text-gray-600">
                   <span>Subtotal</span>
-                  <span>${subtotal.toFixed(2)}</span>
+                  <span>{formatPrice(subtotal)}</span>
                 </div>
                 <div className="flex justify-between text-gray-600">
                   <span>Shipping</span>
-                  <span>{shipping === 0 ? 'FREE' : `$${shipping.toFixed(2)}`}</span>
+                  <span>{shipping === 0 ? 'FREE' : formatPrice(shipping)}</span>
                 </div>
                 <div className="flex justify-between text-gray-600">
-                  <span>Tax (10%)</span>
-                  <span>${tax}</span>
+                  <span>Tax (18%)</span>
+                  <span>{formatPrice(tax)}</span>
                 </div>
                 <div className="border-t pt-4 flex justify-between text-lg font-bold">
                   <span>Total</span>
-                  <span className="text-rose-500">${total}</span>
+                  <span className="text-rose-500">{formatPrice(total)}</span>
                 </div>
               </div>
 
-              {subtotal < 150 && (
+              {subtotal < 12000 && (
                 <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-6 text-sm text-blue-800">
                   <p className="font-semibold mb-1">Free Shipping Available!</p>
-                  <p>Add ${(150 - subtotal).toFixed(2)} more to unlock free shipping</p>
+                  <p>Add {formatPrice(12000 - subtotal)} more to unlock free shipping</p>
                 </div>
               )}
 

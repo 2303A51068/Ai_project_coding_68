@@ -3,13 +3,14 @@ import { useState } from 'react';
 import * as Icons from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../hooks/useCart';
+import { formatPrice } from '../utils/formatCurrency';
 
 export default function HomePage() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const { addToCart } = useCart();
   const [activeFilter, setActiveFilter] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
-  const [priceRange, setPriceRange] = useState([0, 500]);
+  const [priceRange, setPriceRange] = useState([0, 30000]);
   const [categoryFilter, setCategoryFilter] = useState('All');
 
   const filteredProducts = content.products.items.filter((product) => {
@@ -76,8 +77,8 @@ export default function HomePage() {
             ))}
           </div>
 
-          <input type="range" min="0" max="500" step="10" value={priceRange[1]} onChange={(e) => setPriceRange([0, parseInt(e.target.value)])} className="w-full" />
-          <p className="text-sm text-gray-600">Price: ${priceRange[0]} - ${priceRange[1]}</p>
+          <input type="range" min="0" max="30000" step="500" value={priceRange[1]} onChange={(e) => setPriceRange([0, parseInt(e.target.value)])} className="w-full" />
+          <p className="text-sm text-gray-600">Price: {formatPrice(priceRange[0])} - {formatPrice(priceRange[1])}</p>
         </div>
 
         {/* Products Grid */}
@@ -89,7 +90,7 @@ export default function HomePage() {
               </div>
               <div className="p-4">
                 <h3 className="font-semibold text-gray-900 truncate">{product.title}</h3>
-                <p className="text-rose-500 font-bold">${product.price.toFixed(2)}</p>
+                <p className="text-rose-500 font-bold">{formatPrice(product.price)}</p>
                 <button onClick={() => { addToCart(product); alert('Added to cart!'); }} className="mt-3 w-full bg-rose-500 text-white py-2 rounded hover:bg-rose-600 transition">
                   Add to Cart
                 </button>

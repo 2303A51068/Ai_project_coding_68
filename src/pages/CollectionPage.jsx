@@ -3,11 +3,12 @@ import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import * as Icons from 'lucide-react';
 import { useCart } from '../hooks/useCart';
+import { formatPrice } from '../utils/formatCurrency';
 
 export default function CollectionPage() {
   const { id } = useParams();
   const [activeFilter, setActiveFilter] = useState('All');
-  const [priceRange, setPriceRange] = useState([0, 500]);
+  const [priceRange, setPriceRange] = useState([0, 30000]);
   const { addToCart } = useCart();
 
   const collectionName = id?.replace(/-/g, ' ').split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
@@ -62,12 +63,12 @@ export default function CollectionPage() {
 
           {/* Price Filter */}
           <div className="mb-4">
-            <label className="block text-sm font-semibold mb-2">Price Range: ${priceRange[0]} - ${priceRange[1]}</label>
+            <label className="block text-sm font-semibold mb-2">Price Range: {formatPrice(priceRange[0])} - {formatPrice(priceRange[1])}</label>
             <input
               type="range"
               min="0"
-              max="500"
-              step="10"
+              max="30000"
+              step="500"
               value={priceRange[1]}
               onChange={(e) => setPriceRange([0, parseInt(e.target.value)])}
               className="w-full"
@@ -94,9 +95,9 @@ export default function CollectionPage() {
                     <h3 className="font-semibold text-gray-900 truncate">{product.title}</h3>
                     <p className="text-sm text-gray-600">{product.brand}</p>
                     <div className="flex justify-between items-center mt-2">
-                      <p className="text-rose-500 font-bold">${product.price.toFixed(2)}</p>
+                      <p className="text-rose-500 font-bold">{formatPrice(product.price)}</p>
                       {product.oldPrice && (
-                        <del className="text-gray-400 text-sm">${product.oldPrice.toFixed(2)}</del>
+                        <del className="text-gray-400 text-sm">{formatPrice(product.oldPrice)}</del>
                       )}
                     </div>
                     <button

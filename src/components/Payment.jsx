@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useCart } from '../hooks/useCart';
 import * as Icons from 'lucide-react';
+import { formatPrice } from '../utils/formatCurrency';
 
 export default function Payment({ onClose, onSuccess }) {
   const { getTotalPrice, cartItems } = useCart();
@@ -101,9 +102,9 @@ export default function Payment({ onClose, onSuccess }) {
 
   const totalPrice = getTotalPrice();
   const subtotal = totalPrice;
-  const shippingCost = subtotal > 150 ? 0 : 10;
-  const tax = (subtotal * 0.1).toFixed(2);
-  const finalTotal = (parseFloat(subtotal) + shippingCost + parseFloat(tax)).toFixed(2);
+  const shippingCost = subtotal > 12000 ? 0 : 500;
+  const tax = (subtotal * 0.18);
+  const finalTotal = subtotal + shippingCost + tax;
 
   return (
     <>
@@ -160,7 +161,7 @@ export default function Payment({ onClose, onSuccess }) {
                           <p className="text-sm text-gray-600">Qty: {item.quantity}</p>
                         </div>
                       </div>
-                      <p className="font-semibold text-rose-500">${(item.price * item.quantity).toFixed(2)}</p>
+                      <p className="font-semibold text-rose-500">{formatPrice(item.price * item.quantity)}</p>
                     </div>
                   ))}
                 </div>
@@ -170,19 +171,19 @@ export default function Payment({ onClose, onSuccess }) {
               <div className="bg-gray-50 rounded-lg p-6 space-y-2">
                 <div className="flex justify-between">
                   <span>Subtotal:</span>
-                  <span>${subtotal.toFixed(2)}</span>
+                  <span>{formatPrice(subtotal)}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Shipping:</span>
-                  <span>{shippingCost === 0 ? 'FREE (Order > $150)' : `$${shippingCost.toFixed(2)}`}</span>
+                  <span>{shippingCost === 0 ? 'FREE (Order > ₹12,000)' : formatPrice(shippingCost)}</span>
                 </div>
                 <div className="flex justify-between text-gray-600">
-                  <span>Tax (10%):</span>
-                  <span>${tax}</span>
+                  <span>Tax (18%):</span>
+                  <span>{formatPrice(tax)}</span>
                 </div>
                 <div className="flex justify-between text-lg font-bold border-t pt-2 text-rose-500">
                   <span>Total:</span>
-                  <span>${finalTotal}</span>
+                  <span>{formatPrice(finalTotal)}</span>
                 </div>
               </div>
 
@@ -191,7 +192,7 @@ export default function Payment({ onClose, onSuccess }) {
                 <Icons.Info size={20} className="text-blue-600 mt-0.5 flex-shrink-0" />
                 <div className="text-sm text-blue-800">
                   <p className="font-semibold">Free Shipping Available!</p>
-                  <p>Orders over $150 qualify for free shipping. Add ${Math.max(0, (150 - subtotal).toFixed(2))} more to unlock free shipping!</p>
+                  <p>Orders over ₹12,000 qualify for free shipping. Add {formatPrice(Math.max(0, 12000 - subtotal))} more to unlock free shipping!</p>
                 </div>
               </div>
             </div>

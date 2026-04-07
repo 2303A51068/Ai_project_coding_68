@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useCart } from '../hooks/useCart';
 import * as Icons from 'lucide-react';
+import { formatPrice } from '../utils/formatCurrency';
 
 export default function ProductDetail({ product, onClose }) {
   const [quantity, setQuantity] = useState(1);
@@ -73,10 +74,10 @@ export default function ProductDetail({ product, onClose }) {
               {/* Price */}
               <div className="flex items-center gap-2 mb-4">
                 <span className="text-3xl font-bold text-rose-500">
-                  ${product.price.toFixed(2)}
+                  {formatPrice(product.price)}
                 </span>
                 <del className="text-lg text-gray-400">
-                  ${product.oldPrice.toFixed(2)}
+                  {formatPrice(product.oldPrice)}
                 </del>
                 <span className="ml-2 bg-red-100 text-red-700 px-3 py-1 rounded text-sm font-semibold">
                   -{discount}%

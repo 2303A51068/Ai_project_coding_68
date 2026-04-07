@@ -1,5 +1,6 @@
 import { useCart } from '../hooks/useCart';
 import * as Icons from 'lucide-react';
+import { formatPrice } from '../utils/formatCurrency';
 
 export default function Cart({ onCheckout }) {
   const { cartItems, isCartOpen, setIsCartOpen, removeFromCart, updateQuantity, getTotalPrice } = useCart();
@@ -45,7 +46,7 @@ export default function Cart({ onCheckout }) {
                   />
                   <div className="flex-1">
                     <h3 className="font-semibold text-gray-900">{item.title}</h3>
-                    <p className="text-sm text-gray-600 mb-2">${item.price.toFixed(2)}</p>
+                    <p className="text-sm text-gray-600 mb-2">{formatPrice(item.price)}</p>
                     <div className="flex items-center gap-2">
                       <button
                         onClick={() => updateQuantity(item.id, item.quantity - 1)}
@@ -79,7 +80,7 @@ export default function Cart({ onCheckout }) {
           <div className="border-t p-6 space-y-4">
             <div className="flex justify-between text-lg font-bold">
               <span>Total:</span>
-              <span className="text-rose-500">${getTotalPrice().toFixed(2)}</span>
+              <span className="text-rose-500">{formatPrice(getTotalPrice())}</span>
             </div>
             <button 
               onClick={() => {
