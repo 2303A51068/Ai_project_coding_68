@@ -22,6 +22,7 @@ function AppContent() {
   const [categoryFilter, setCategoryFilter] = useState('All');
   const [isPaymentOpen, setIsPaymentOpen] = useState(false);
   const [orderConfirmation, setOrderConfirmation] = useState(null);
+  const [activeSection, setActiveSection] = useState(null); // 'about', 'blog', 'contact'
   
   const { addToCart, getCartCount, setIsCartOpen, clearCart } = useCart();
   const { setIsAuthModalOpen, user } = useAuth();
@@ -93,11 +94,17 @@ function AppContent() {
                 onClick={() => {
                   // Scroll to different sections based on menu item
                   if (item.label === 'Home') {
+                    setActiveSection(null);
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   } else if (item.label === 'Store' || item.label === 'Collections') {
+                    setActiveSection(null);
                     document.querySelector('#products-section')?.scrollIntoView({ behavior: 'smooth' });
-                  } else {
-                    alert(`${item.label} section coming soon!`);
+                  } else if (item.label === 'About') {
+                    setActiveSection('about');
+                  } else if (item.label === 'Blog') {
+                    setActiveSection('blog');
+                  } else if (item.label === 'Contact') {
+                    setActiveSection('contact');
                   }
                 }}
                 className="font-semibold text-gray-800 hover:text-rose-500 cursor-pointer"
@@ -202,11 +209,17 @@ function AppContent() {
                   setMenuOpen(false);
                   // Scroll to different sections based on menu item
                   if (item.label === 'Home') {
+                    setActiveSection(null);
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   } else if (item.label === 'Store' || item.label === 'Collections') {
+                    setActiveSection(null);
                     document.querySelector('#products-section')?.scrollIntoView({ behavior: 'smooth' });
-                  } else {
-                    alert(`${item.label} section coming soon!`);
+                  } else if (item.label === 'About') {
+                    setActiveSection('about');
+                  } else if (item.label === 'Blog') {
+                    setActiveSection('blog');
+                  } else if (item.label === 'Contact') {
+                    setActiveSection('contact');
                   }
                 }}
                 className="block border-b py-2 font-semibold text-gray-800 hover:text-rose-500 cursor-pointer w-full text-left"
@@ -774,6 +787,185 @@ function AppContent() {
             alert(`Order placed successfully! Order ID: ${order.orderId}`);
           }}
         />
+      )}
+
+      {/* ─── About Modal Component */}
+      {activeSection === 'about' && (
+        <>
+          <div
+            className="fixed inset-0 z-40 bg-black/60"
+            onClick={() => setActiveSection(null)}
+          />
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto">
+            <div className="w-full max-w-2xl bg-white rounded-lg shadow-lg p-8 my-8">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-3xl font-bold">{content.about.title}</h2>
+                <button
+                  onClick={() => setActiveSection(null)}
+                  className="p-2 hover:bg-gray-100 rounded"
+                >
+                  <Icons.X size={24} />
+                </button>
+              </div>
+              <p className="text-rose-500 font-semibold mb-4">{content.about.subtitle}</p>
+              <p className="text-gray-600 mb-6">{content.about.description}</p>
+              
+              <div className="mb-8">
+                <h3 className="text-xl font-bold mb-3">Our Mission</h3>
+                <p className="text-gray-600 mb-4">{content.about.mission}</p>
+                <h3 className="text-xl font-bold mb-3">Our Vision</h3>
+                <p className="text-gray-600 mb-6">{content.about.vision}</p>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-4">
+                {content.about.values.map((value, idx) => (
+                  <div key={idx} className="bg-gray-50 p-4 rounded-lg">
+                    <h4 className="font-bold text-gray-900 mb-2">{value.title}</h4>
+                    <p className="text-sm text-gray-600">{value.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* ─── Blog Modal Component */}
+      {activeSection === 'blog' && (
+        <>
+          <div
+            className="fixed inset-0 z-40 bg-black/60"
+            onClick={() => setActiveSection(null)}
+          />
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto">
+            <div className="w-full max-w-3xl bg-white rounded-lg shadow-lg p-8 my-8">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-3xl font-bold">Blog</h2>
+                <button
+                  onClick={() => setActiveSection(null)}
+                  className="p-2 hover:bg-gray-100 rounded"
+                >
+                  <Icons.X size={24} />
+                </button>
+              </div>
+              
+              <div className="space-y-6 max-h-96 overflow-y-auto">
+                {content.blog.map((post) => (
+                  <div key={post.id} className="border-b pb-6">
+                    <div className="flex justify-between items-start mb-2">
+                      <h3 className="text-xl font-bold text-gray-900 flex-1">{post.title}</h3>
+                      <span className="bg-rose-100 text-rose-700 text-xs px-3 py-1 rounded-full whitespace-nowrap ml-4">
+                        {post.category}
+                      </span>
+                    </div>
+                    <p className="text-sm text-gray-500 mb-2">
+                      By {post.author} on {post.date}
+                    </p>
+                    <p className="text-gray-600">{post.excerpt}</p>
+                    <button className="mt-3 text-rose-500 font-semibold hover:text-rose-600">
+                      Read More →
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* ─── Contact Modal Component */}
+      {activeSection === 'contact' && (
+        <>
+          <div
+            className="fixed inset-0 z-40 bg-black/60"
+            onClick={() => setActiveSection(null)}
+          />
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto">
+            <div className="w-full max-w-2xl bg-white rounded-lg shadow-lg p-8 my-8">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-3xl font-bold">Contact Us</h2>
+                <button
+                  onClick={() => setActiveSection(null)}
+                  className="p-2 hover:bg-gray-100 rounded"
+                >
+                  <Icons.X size={24} />
+                </button>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-8 mb-8">
+                <div>
+                  <h3 className="text-lg font-bold mb-4">Get In Touch</h3>
+                  <div className="space-y-4">
+                    <div className="flex gap-3">
+                      <Icons.MapPin size={20} className="text-rose-500 flex-shrink-0 mt-1" />
+                      <div>
+                        <p className="font-semibold text-gray-900">Address</p>
+                        <p className="text-gray-600 text-sm">{content.footer.contact.address}</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-3">
+                      <Icons.Phone size={20} className="text-rose-500 flex-shrink-0 mt-1" />
+                      <div>
+                        <p className="font-semibold text-gray-900">Phone</p>
+                        <p className="text-gray-600 text-sm">{content.footer.contact.phone}</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-3">
+                      <Icons.Mail size={20} className="text-rose-500 flex-shrink-0 mt-1" />
+                      <div>
+                        <p className="font-semibold text-gray-900">Email</p>
+                        <p className="text-gray-600 text-sm">{content.footer.contact.email}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-bold mb-4">Operating Hours</h3>
+                  <div className="space-y-2">
+                    {content.footer.openingTime.map((schedule, idx) => (
+                      <div key={idx} className="flex justify-between">
+                        <span className="text-gray-900 font-medium">{schedule.day}</span>
+                        <span className="text-gray-600 text-sm">{schedule.time}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <form className="space-y-4">
+                <div className="grid md:grid-cols-2 gap-4">
+                  <input
+                    type="text"
+                    placeholder="Your Name"
+                    className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500"
+                  />
+                  <input
+                    type="email"
+                    placeholder="Your Email"
+                    className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500"
+                  />
+                </div>
+                <input
+                  type="text"
+                  placeholder="Subject"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500"
+                />
+                <textarea
+                  placeholder="Your Message"
+                  rows="4"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500"
+                ></textarea>
+                <button
+                  type="submit"
+                  className="w-full bg-rose-500 text-white py-2 rounded-lg font-semibold hover:bg-rose-600 transition"
+                >
+                  Send Message
+                </button>
+              </form>
+            </div>
+          </div>
+        </>
       )}
     </>
   );

@@ -216,6 +216,50 @@
     { "image": "/insta-1.jpg", "link": "#" }
   ],
 
+  "about": {
+    "title": "About ShoesHub",
+    "subtitle": "Your Premier Footwear Destination",
+    "description": "ShoesHub is dedicated to providing premium quality footwear for every occasion. Since 2015, we've been serving customers with the finest shoe collections from top global brands.",
+    "mission": "To make quality footwear accessible to everyone by offering a curated selection of styles that blend comfort, fashion, and durability.",
+    "vision": "To become the world's leading online destination for footwear enthusiasts, celebrated for outstanding customer service and exclusive collections.",
+    "values": [
+      { "title": "Quality", "description": "Premium shoes sourced from trusted manufacturers" },
+      { "title": "Integrity", "description": "Transparent pricing and honest customer relationships" },
+      { "title": "Innovation", "description": "Latest trends and technologies in footwear design" },
+      { "title": "Customer Focus", "description": "Exceptional service and support at every touchpoint" }
+    ]
+  },
+
+  "blog": [
+    {
+      "id": 1,
+      "title": "How to Choose the Perfect Running Shoe",
+      "excerpt": "Discover the key factors to consider when selecting running shoes for optimal performance and comfort.",
+      "date": "March 15, 2024",
+      "author": "Sarah Mitchell",
+      "category": "Guides",
+      "content": "The right running shoe can make all the difference in your athletic performance. Consider your foot type, running style, terrain, and cushioning needs..."
+    },
+    {
+      "id": 2,
+      "title": "Summer Shoe Trends 2024",
+      "excerpt": "Explore the hottest footwear trends making waves this summer season.",
+      "date": "March 10, 2024",
+      "author": "James Anderson",
+      "category": "Trends",
+      "content": "This summer, expect to see bold colors, sustainable materials, and retro-inspired designs dominating the footwear landscape..."
+    },
+    {
+      "id": 3,
+      "title": "Sustainable Footwear: The Future of Shoes",
+      "excerpt": "Learn about eco-friendly shoe manufacturing and sustainable practices in the footwear industry.",
+      "date": "March 5, 2024",
+      "author": "Emma Johnson",
+      "category": "Sustainability",
+      "content": "As environmental consciousness grows, many brands are adopting sustainable manufacturing practices to reduce their carbon footprint..."
+    }
+  ],
+
   "footer": {
     "brand": {
       "name": "ShoesHub",
