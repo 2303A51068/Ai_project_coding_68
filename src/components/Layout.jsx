@@ -4,13 +4,14 @@ import * as Icons from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../hooks/useCart';
 import { useAuth } from '../hooks/useAuth';
+import { useSearch } from '../hooks/useSearch';
 
 export default function Layout({ children }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
   const { getCartCount } = useCart();
   const { user } = useAuth();
+  const { searchQuery, setSearchQuery } = useSearch();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -62,7 +63,12 @@ export default function Layout({ children }) {
                 type="text"
                 placeholder="Search shoes..."
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  if (e.target.value && window.location.pathname !== '/') {
+                    navigate('/');
+                  }
+                }}
                 className="ml-2 bg-transparent outline-none w-32 text-sm"
               />
             </div>

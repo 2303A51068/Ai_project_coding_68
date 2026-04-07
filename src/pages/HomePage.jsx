@@ -3,13 +3,14 @@ import { useState } from 'react';
 import * as Icons from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../hooks/useCart';
+import { useSearch } from '../hooks/useSearch';
 import { formatPrice } from '../utils/formatCurrency';
 
 export default function HomePage() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const { addToCart } = useCart();
   const [activeFilter, setActiveFilter] = useState('All');
-  const [searchQuery, setSearchQuery] = useState('');
+  const { searchQuery, setSearchQuery } = useSearch();
   const [priceRange, setPriceRange] = useState([0, 30000]);
   const [categoryFilter, setCategoryFilter] = useState('All');
 
