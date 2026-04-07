@@ -4,15 +4,13 @@ import * as Icons from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../hooks/useCart';
 import { useAuth } from '../hooks/useAuth';
-import Cart from '../components/Cart';
-import Auth from '../components/Auth';
 
 export default function Layout({ children }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const { getCartCount, setIsCartOpen } = useCart();
-  const { setIsAuthModalOpen, user } = useAuth();
+  const { getCartCount } = useCart();
+  const { user } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -68,7 +66,7 @@ export default function Layout({ children }) {
                 className="ml-2 bg-transparent outline-none w-32 text-sm"
               />
             </div>
-            <button onClick={() => setIsAuthModalOpen(true)} className="relative group">
+            <button onClick={() => navigate('/account')} className="relative group">
               <Icons.User className="h-5 w-5 cursor-pointer hover:text-rose-500" />
               {user && (
                 <div className="absolute right-0 mt-2 bg-white shadow-lg rounded-lg p-3 hidden group-hover:block whitespace-nowrap text-sm">
@@ -77,7 +75,10 @@ export default function Layout({ children }) {
                 </div>
               )}
             </button>
-            <button onClick={() => setIsCartOpen(true)} className="relative flex items-center gap-2">
+            <button onClick={() => navigate('/wishlist')} className="relative cursor-pointer">
+              <Icons.Heart className="h-5 w-5 hover:text-rose-500" />
+            </button>
+            <button onClick={() => navigate('/cart')} className="relative flex items-center gap-2">
               <Icons.ShoppingBag className="h-5 w-5 cursor-pointer hover:text-rose-500" />
               {getCartCount() > 0 && (
                 <span className="absolute -right-3 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-rose-500 text-xs text-white">
@@ -171,10 +172,6 @@ export default function Layout({ children }) {
           </div>
         </div>
       </footer>
-
-      {/* Modals */}
-      <Cart onCheckout={() => {}} />
-      <Auth />
     </>
   );
 }

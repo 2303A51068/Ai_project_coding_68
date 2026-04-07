@@ -8,6 +8,10 @@ import BlogPage from './pages/BlogPage';
 import BlogPostPage from './pages/BlogPostPage';
 import ContactPage from './pages/ContactPage';
 import CollectionPage from './pages/CollectionPage';
+import CartPage from './pages/CartPage';
+import CheckoutPage from './pages/CheckoutPage';
+import AccountPage from './pages/AccountPage';
+import WishlistPage from './pages/WishlistPage';
 
 export default function App() {
   return (
@@ -22,6 +26,10 @@ export default function App() {
               <Route path="/blog/:id" element={<BlogPostPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/collection/:id" element={<CollectionPage />} />
+              <Route path="/cart" element={<CartPage />} />
+              <Route path="/checkout" element={<CheckoutPage />} />
+              <Route path="/account" element={<AccountPage />} />
+              <Route path="/wishlist" element={<WishlistPage />} />
             </Routes>
           </Layout>
         </AuthProvider>
