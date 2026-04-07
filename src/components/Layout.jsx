@@ -66,7 +66,7 @@ export default function Layout({ children }) {
                 className="ml-2 bg-transparent outline-none w-32 text-sm"
               />
             </div>
-            <button onClick={() => navigate('/account')} className="relative group">
+            <button onClick={() => navigate(user ? '/account' : '/auth')} className="relative group">
               <Icons.User className="h-5 w-5 cursor-pointer hover:text-rose-500" />
               {user && (
                 <div className="absolute right-0 mt-2 bg-white shadow-lg rounded-lg p-3 hidden group-hover:block whitespace-nowrap text-sm">
@@ -122,6 +122,33 @@ export default function Layout({ children }) {
               </Link>
             ))}
           </nav>
+
+          {/* Mobile Auth Section */}
+          <div className="mt-8 pt-6 border-t space-y-3">
+            <Link
+              to="/cart"
+              onClick={() => setMenuOpen(false)}
+              className="flex items-center gap-2 text-gray-800 hover:text-rose-500 font-semibold"
+            >
+              <Icons.ShoppingCart size={18} /> Cart
+            </Link>
+            <Link
+              to="/wishlist"
+              onClick={() => setMenuOpen(false)}
+              className="flex items-center gap-2 text-gray-800 hover:text-rose-500 font-semibold"
+            >
+              <Icons.Heart size={18} /> Wishlist
+            </Link>
+            <button
+              onClick={() => {
+                navigate(user ? '/account' : '/auth');
+                setMenuOpen(false);
+              }}
+              className="w-full flex items-center gap-2 bg-rose-500 text-white py-2 px-4 rounded-lg font-semibold hover:bg-rose-600 transition"
+            >
+              <Icons.User size={18} /> {user ? 'My Account' : 'Login / Register'}
+            </button>
+          </div>
         </aside>
       </header>
 

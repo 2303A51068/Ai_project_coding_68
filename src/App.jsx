@@ -12,6 +12,7 @@ import CartPage from './pages/CartPage';
 import CheckoutPage from './pages/CheckoutPage';
 import AccountPage from './pages/AccountPage';
 import WishlistPage from './pages/WishlistPage';
+import AuthPage from './pages/AuthPage';
 
 export default function App() {
   return (
@@ -30,6 +31,7 @@ export default function App() {
               <Route path="/checkout" element={<CheckoutPage />} />
               <Route path="/account" element={<AccountPage />} />
               <Route path="/wishlist" element={<WishlistPage />} />
+              <Route path="/auth" element={<AuthPage />} />
             </Routes>
           </Layout>
         </AuthProvider>
